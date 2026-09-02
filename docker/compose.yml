@@ -1,6 +1,3 @@
-networks:
-  lab-network:
-
 services:
 
   postgres:
@@ -191,3 +188,7 @@ volumes:
   grafana_data:
   prometheus_data:
   loki_data:
+
+networks:
+  lab-network:
+    driver: bridge

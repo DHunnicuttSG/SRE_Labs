@@ -1,21 +1,24 @@
 #!/bin/bash
 
-set -ex
+set -xe
 
+# Update packages
 dnf update -y
 
+# Install required packages
 dnf install -y \
 docker \
 git \
-curl \
-wget \
-jq \
-python3 \
-python3-pip
+jq
 
+# Start Docker
 systemctl enable docker
 systemctl start docker
 
+# Allow ec2-user access
+usermod -aG docker ec2-user
+
+# Install Docker Compose
 mkdir -p /usr/local/lib/docker/cli-plugins
 
 curl -SL \
@@ -24,25 +27,7 @@ https://github.com/docker/compose/releases/latest/download/docker-compose-linux-
 
 chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 
-usermod -aG docker ec2-user
-
+# Lab folder
 mkdir -p /opt/prod-support-lab
 
-cat <<EOF >/etc/motd
-
-=========================================
-PRODUCTION SUPPORT TRAINING LAB
-=========================================
-
-Installed:
-- Docker
-- Docker Compose
-- Python3
-- Git
-
-Lab Directory:
-  /opt/prod-support-lab
-
-=========================================
-
-EOF
+echo "Bootstrap completed"

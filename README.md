@@ -9,6 +9,8 @@ You MAY need to update a few items.
 Log into AWS cloudshell and upload all the files from the terraform directory.
 - Use Actions / Upload Files  
 
+***Afterward, be sure to check that the userdata.sh is executable***
+
 Check if terraform is installed
 ```bash
 terraform version

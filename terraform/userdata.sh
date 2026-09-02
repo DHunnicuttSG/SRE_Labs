@@ -6,10 +6,7 @@ set -xe
 dnf update -y
 
 # Install required packages
-dnf install -y \
-docker \
-git \
-jq
+dnf install -y docker git jq
 
 # Start Docker
 systemctl enable docker
@@ -28,6 +25,14 @@ https://github.com/docker/compose/releases/latest/download/docker-compose-linux-
 chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 
 # Lab folder
-mkdir -p /opt/prod-support-lab
+mkdir -p /opt
+
+cd /opt
+
+git clone https://github.com/DHunnicuttSG/SRE_Labs.git
+
+cd /opt/SRE_Labs/docker
+
+docker compose up -d
 
 echo "Bootstrap completed"

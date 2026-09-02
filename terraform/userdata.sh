@@ -29,7 +29,9 @@ mkdir -p /opt
 
 cd /opt
 
-git clone https://github.com/DHunnicuttSG/SRE_Labs.git
+git clone ${github_repo}
+
+echo "Repository cloned successfully"
 
 cd /opt/SRE_Labs/docker
 

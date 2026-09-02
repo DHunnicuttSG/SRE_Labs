@@ -1,7 +1,13 @@
+networks:
+  lab-network:
+
 services:
 
   postgres:
+    networks: lab-network
     image: postgres:16
+    restart: unless-stopped
+
     container_name: postgres
 
     environment:
@@ -12,11 +18,20 @@ services:
     ports:
       - "5432:5432"
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labuser"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   redis:
+    networks: lab-network
+
     image: redis:7
+    restart: unless-stopped
 
     container_name: redis
 
@@ -24,10 +39,13 @@ services:
       - "6379:6379"
 
   app:
+    networks: lab-network
+
     build:
       context: ./app
 
     container_name: flask-app
+    restart: unless-stopped
 
     environment:
       DB_HOST: postgres
@@ -44,7 +62,10 @@ services:
       - redis
 
   nginx:
+    networks: lab-network
+
     image: nginx:latest
+    restart: unless-stopped
 
     container_name: nginx
 
@@ -58,7 +79,10 @@ services:
       - app
 
   prometheus:
+    networks: lab-network
+
     image: prom/prometheus
+    restart: unless-stopped
 
     container_name: prometheus
 
@@ -69,7 +93,10 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
+    networks: lab-network
+
     image: grafana/grafana
+    restart: unless-stopped
 
     container_name: grafana
 
@@ -84,7 +111,10 @@ services:
       - grafana_data:/var/lib/grafana
 
   loki:
+    networks: lab-network
+
     image: grafana/loki:latest
+    restart: unless-stopped
 
     container_name: loki
 
@@ -97,7 +127,10 @@ services:
       - ./loki/config.yml:/etc/loki/config.yml
 
   promtail:
+    networks: lab-network
+
     image: grafana/promtail:latest
+    restart: unless-stopped
 
     container_name: promtail
 
@@ -108,7 +141,10 @@ services:
     command: -config.file=/etc/promtail/config.yml
 
   alertmanager:
+    networks: lab-network
+
     image: prom/alertmanager
+    restart: unless-stopped
 
     container_name: alertmanager
 
@@ -119,7 +155,10 @@ services:
       - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
 
   node-exporter:
+    networks: lab-network
+
     image: prom/node-exporter
+    restart: unless-stopped
 
     container_name: node-exporter
 
@@ -127,11 +166,16 @@ services:
       - "9100:9100"
 
   evaluator:
+    networks: lab-network
+
     build:
       context: ./evaluator
 
     container_name: evaluator
+    restart: unless-stopped
 
 volumes:
   postgres_data:
   grafana_data:
+  prometheus_data:
+  loki_data:

@@ -12,7 +12,12 @@ resource "aws_instance" "lab" {
 
   iam_instance_profile = aws_iam_instance_profile.profile.name
 
-  user_data = file("${path.module}/userdata.sh")
+  user_data = templatefile(
+  "${path.module}/userdata.sh",
+  {
+    github_repo = var.github_repo
+  }
+)
 
   user_data_replace_on_change = true
 
@@ -44,3 +49,4 @@ resource "aws_eip" "lab" {
     Name = "prod-support-lab-eip"
   }
 }
+

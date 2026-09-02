@@ -20,3 +20,7 @@ variable "allowed_ssh_cidr" {
 variable "key_pair_name" {
   type = string
 }
+
+variable "github_repo" {
+  default = "https://github.com/DHunnicuttSG/SRE_Labs.git"
+}

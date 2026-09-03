@@ -1,4 +1,5 @@
 import requests
+import time
 
 def check():
 
@@ -16,4 +17,6 @@ def check():
     except Exception:
         print("FAIL")
 
-check()
+while True:
+    check()
+    time.sleep(60)

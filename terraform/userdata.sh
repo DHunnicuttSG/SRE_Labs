@@ -19,10 +19,22 @@ usermod -aG docker ec2-user
 mkdir -p /usr/local/lib/docker/cli-plugins
 
 curl -SL \
-https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 \
+https://github.com/docker/compose/releases/download/v2.39.4/docker-compose-linux-x86_64 \
 -o /usr/local/lib/docker/cli-plugins/docker-compose
 
 chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+# Install Buildx
+curl -SL \
+https://github.com/docker/buildx/releases/download/v0.28.0/buildx-v0.28.0.linux-amd64 \
+-o /usr/local/lib/docker/cli-plugins/docker-buildx
+
+chmod +x /usr/local/lib/docker/cli-plugins/docker-buildx
+
+
+# Verify
+docker compose version
+docker buildx version
 
 # Lab folder
 mkdir -p /opt

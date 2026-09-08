@@ -10,13 +10,13 @@ def check():
         )
 
         if resp.status_code == 200:
-            print("PASS")
+            print("PASS", flush=True)
         else:
-            print("FAIL")
+            print("FAIL", flush=True)
 
     except Exception:
-        print("FAIL")
+        print("FAIL", flush=True)
 
 while True:
     check()
-    time.sleep(60)
+    time.sleep(30)

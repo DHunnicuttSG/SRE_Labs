@@ -79,6 +79,61 @@ def create_ticket():
 
     return {"message": "created"}
 
+@app.route("/tickets/<int:id>", methods=["GET"])
+def get_ticket(id):
+
+    ticket = Ticket.query.get_or_404(id)
+
+    return {
+        "id": ticket.id,
+        "title": ticket.title,
+        "description": ticket.description,
+        "status": ticket.status,
+        "priority": ticket.priority,
+        "owner": ticket.owner
+    }
+
+@app.route("/tickets/<int:id>", methods=["PUT"])
+def update_ticket(id):
+
+    ticket = Ticket.query.get_or_404(id)
+
+    data = request.json
+
+    ticket.title = data.get("title", ticket.title)
+    ticket.description = data.get(
+        "description",
+        ticket.description
+    )
+    ticket.status = data.get("status", ticket.status)
+    ticket.priority = data.get(
+        "priority",
+        ticket.priority
+    )
+    ticket.owner = data.get(
+        "owner",
+        ticket.owner
+    )
+
+    db.session.commit()
+
+    return {
+        "message": "ticket updated"
+    }
+
+@app.route("/tickets/<int:id>", methods=["DELETE"])
+def delete_ticket(id):
+
+    ticket = Ticket.query.get_or_404(id)
+
+    db.session.delete(ticket)
+
+    db.session.commit()
+
+    return {
+        "message": "ticket deleted"
+    }
+
 
 if __name__ == "__main__":
     app.run(

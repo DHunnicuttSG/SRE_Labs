@@ -41,3 +41,44 @@ VALUES
 'MEDIUM',
 'support1'
 );
+
+
+CREATE TABLE IF NOT EXISTS comments (
+
+    id SERIAL PRIMARY KEY,
+
+    ticket_id INTEGER NOT NULL,
+
+    author VARCHAR(100) NOT NULL,
+
+    comment TEXT NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_ticket
+        FOREIGN KEY(ticket_id)
+        REFERENCES tickets(id)
+);
+
+INSERT INTO comments
+(ticket_id, author, comment)
+
+VALUES
+
+(
+1,
+'support1',
+'Issue reported by customer.'
+),
+
+(
+1,
+'support2',
+'Investigating authentication service.'
+),
+
+(
+2,
+'support1',
+'Database team engaged.'
+);

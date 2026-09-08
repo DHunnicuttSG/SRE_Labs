@@ -10,7 +10,7 @@ from prometheus_client import generate_latest
 from prometheus_client import CONTENT_TYPE_LATEST
 
 from database import db
-from models import Ticket
+from models import Ticket, Comment
 
 app = Flask(__name__)
 
@@ -133,6 +133,46 @@ def delete_ticket(id):
     return {
         "message": "ticket deleted"
     }
+
+@app.route("/tickets/<int:id>/comments", methods=["GET"])
+def get_comments(id):
+
+    Ticket.query.get_or_404(id)
+
+    comments = Comment.query.filter_by(
+        ticket_id=id
+    ).all()
+
+    return jsonify([
+        {
+            "id": c.id,
+            "author": c.author,
+            "comment": c.comment,
+            "created_at": c.created_at
+        }
+        for c in comments
+    ])
+
+@app.route("/tickets/<int:id>/comments", methods=["POST"])
+def create_comment(id):
+
+    Ticket.query.get_or_404(id)
+
+    data = request.json
+
+    comment = Comment(
+        ticket_id=id,
+        author=data["author"],
+        comment=data["comment"]
+    )
+
+    db.session.add(comment)
+    db.session.commit()
+
+    return {
+        "message": "comment added"
+    }
+
 
 
 if __name__ == "__main__":

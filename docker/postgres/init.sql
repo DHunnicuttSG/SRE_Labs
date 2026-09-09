@@ -4,7 +4,13 @@ CREATE TABLE IF NOT EXISTS tickets (
     description TEXT,
     status VARCHAR(50),
     priority VARCHAR(50),
-    owner VARCHAR(100)
+    owner VARCHAR(100),
+    severity VARCHAR(10),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    acknowledged_at TIMESTAMP,
+    resolved_at TIMESTAMP,
+    sla_target_minutes INTEGER,
+    sla_breached BOOLEAN DEFAULT FALSE
 );
 
 INSERT INTO tickets

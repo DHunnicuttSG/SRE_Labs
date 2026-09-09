@@ -9,6 +9,8 @@ from prometheus_client import Counter
 from prometheus_client import generate_latest
 from prometheus_client import CONTENT_TYPE_LATEST
 
+from datetime import datetime
+
 from database import db
 from models import Ticket, Comment, AssignmentHistory, StatusHistory
 
@@ -23,6 +25,13 @@ VALID_TRANSITIONS = {
     "IN_PROGRESS": ["RESOLVED"],
     "RESOLVED": ["CLOSED"],
     "CLOSED": []
+}
+
+SLA_RULES = {
+    "SEV1": 30,
+    "SEV2": 120,
+    "SEV3": 480,
+    "SEV4": 1440
 }
 
 db.init_app(app)
@@ -73,15 +82,22 @@ def create_ticket():
 
     data = request.json
 
+    severity = data.get(
+        "severity", "SEV4"
+    )
+
     ticket = Ticket(
         title=data["title"],
         description=data["description"],
         status="OPEN",
         priority=data["priority"],
-        owner="unassigned"
+        owner="unassigned",
+        severity=severity,
+        sla_target_minutes=SLA_RULES[severity]
     )
 
     db.session.add(ticket)
+    # evaluate_sla(ticket)
     db.session.commit()
 
     return {"message": "created"}
@@ -156,6 +172,9 @@ def update_ticket(id):
 
         ticket.status = new_status
 
+        if new_status == "RESOLVED":
+            ticket.resolved_at = datetime.timezone.utc()
+
     #
     # General updates
     #
@@ -175,6 +194,7 @@ def update_ticket(id):
         ticket.priority
     )
 
+    evaluate_sla(ticket)
     db.session.commit()
 
     return {
@@ -264,6 +284,62 @@ def get_status_history(id):
         }
         for r in rows
     ])
+
+@app.route("/tickets/<int:id>/acknowledge", methods=["POST"])
+def acknowledge_ticket(id):
+
+    ticket = Ticket.query.get_or_404(id)
+
+    ticket.acknowledged_at = datetime.utcnow()
+
+    db.session.commit()
+
+    return {
+        "message": "ticket acknowledged"
+    }
+
+# SLA evaluation function
+def evaluate_sla(ticket):
+
+    if not ticket.resolved_at:
+        return
+
+    duration = (
+        ticket.resolved_at -
+        ticket.created_at
+    )
+
+    minutes = duration.total_seconds() / 60
+
+    if minutes > ticket.sla_target_minutes:
+
+        ticket.sla_breached = True
+
+
+@app.route("/tickets/<int:id>/sla", methods=["GET"])
+def get_sla(id):
+
+    ticket = Ticket.query.get_or_404(id)
+
+    return {
+
+        "severity": ticket.severity,
+
+        "target_minutes":
+            ticket.sla_target_minutes,
+
+        "created_at":
+            ticket.created_at,
+
+        "acknowledged_at":
+            ticket.acknowledged_at,
+
+        "resolved_at":
+            ticket.resolved_at,
+
+        "breached":
+            ticket.sla_breached
+    }
 
 
 if __name__ == "__main__":

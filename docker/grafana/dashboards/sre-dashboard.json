@@ -5,8 +5,8 @@
     "name": "adg2n56",
     "namespace": "default",
     "uid": "1d6f85d2-6f71-4262-b18a-7c48949a1c71",
-    "resourceVersion": "1788977577738006",
-    "generation": 7,
+    "resourceVersion": "1788978415570999",
+    "generation": 8,
     "creationTimestamp": "2026-09-09T17:50:31Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "3570648918650880"
@@ -15,7 +15,7 @@
       "grafana.app/createdBy": "user:efxr4y6ap7jlse",
       "grafana.app/saved-from-ui": "Grafana v13.2.1 (56cd3e9288)",
       "grafana.app/updatedBy": "user:efxr4y6ap7jlse",
-      "grafana.app/updatedTimestamp": "2026-09-09T18:12:57Z"
+      "grafana.app/updatedTimestamp": "2026-09-09T18:26:55Z"
     }
   },
   "spec": {
@@ -649,7 +649,7 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-1"
@@ -662,7 +662,7 @@
               "x": 12,
               "y": 0,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-2"
@@ -673,9 +673,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 8,
+              "y": 6,
               "width": 12,
-              "height": 8,
+              "height": 7,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-3"
@@ -686,9 +686,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 8,
+              "y": 6,
               "width": 12,
-              "height": 8,
+              "height": 7,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-4"
@@ -699,7 +699,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 16,
+              "y": 13,
               "width": 12,
               "height": 8,
               "element": {
@@ -712,7 +712,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 16,
+              "y": 13,
               "width": 12,
               "height": 8,
               "element": {

@@ -10,7 +10,7 @@ from prometheus_client import generate_latest
 from prometheus_client import CONTENT_TYPE_LATEST
 
 from database import db
-from models import Ticket, Comment
+from models import Ticket, Comment, AssignmentHistory, StatusHistory
 
 app = Flask(__name__)
 

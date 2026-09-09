@@ -41,3 +41,51 @@ class Comment(db.Model):
         db.DateTime,
         server_default=db.func.now()
     )
+
+class AssignmentHistory(db.Model):
+
+    __tablename__ = "assignment_history"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    ticket_id = db.Column(
+        db.Integer,
+        db.ForeignKey("tickets.id"),
+        nullable=False
+    )
+
+    old_owner = db.Column(db.String(100))
+
+    new_owner = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
+    changed_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )
+
+class StatusHistory(db.Model):
+
+    __tablename__ = "status_history"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    ticket_id = db.Column(
+        db.Integer,
+        db.ForeignKey("tickets.id"),
+        nullable=False
+    )
+
+    old_status = db.Column(db.String(50))
+
+    new_status = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
+    changed_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )    

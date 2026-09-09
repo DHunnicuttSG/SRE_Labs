@@ -18,6 +18,13 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"postgresql://labuser:labpassword@postgres:5432/ticketdb"
 )
 
+VALID_TRANSITIONS = {
+    "OPEN": ["IN_PROGRESS"],
+    "IN_PROGRESS": ["RESOLVED"],
+    "RESOLVED": ["CLOSED"],
+    "CLOSED": []
+}
+
 db.init_app(app)
 
 REQUESTS = Counter(
@@ -110,16 +117,52 @@ def update_ticket(id):
         "priority",
         ticket.priority
     )
-    ticket.owner = data.get(
-        "owner",
-        ticket.owner
-    )
+
+    new_owner = data.get("owner")
+
+    if new_owner and new_owner != ticket.owner:
+
+        history = AssignmentHistory(
+            ticket_id=ticket.id,
+            old_owner=ticket.owner,
+            new_owner=new_owner
+        )
+
+        db.session.add(history)
+
+        ticket.owner = new_owner
+
+    # Check Status
+    new_status = data.get("status")
+
+    if new_status and new_status != ticket.status:
+
+        allowed = VALID_TRANSITIONS.get(
+            ticket.status,
+            []
+        )
+
+        if new_status not in allowed:
+
+            return {
+                "error":
+                f"Invalid transition "
+                f"{ticket.status} -> {new_status}"
+            }, 400
+
+        history = StatusHistory(
+            ticket_id=ticket.id,
+            old_status=ticket.status,
+            new_status=new_status
+        )
+
+        db.session.add(history)
+
+        ticket.status = new_status
 
     db.session.commit()
 
-    return {
-        "message": "ticket updated"
-    }
+    return {"message": "ticket updated"}
 
 @app.route("/tickets/<int:id>", methods=["DELETE"])
 def delete_ticket(id):
@@ -173,6 +216,37 @@ def create_comment(id):
         "message": "comment added"
     }
 
+@app.route("/tickets/<int:id>/assignments", methods=["GET"])
+def get_assignment_history(id):
+
+    rows = AssignmentHistory.query.filter_by(
+        ticket_id=id
+    ).all()
+
+    return jsonify([
+        {
+            "old_owner": r.old_owner,
+            "new_owner": r.new_owner,
+            "changed_at": r.changed_at
+        }
+        for r in rows
+    ])
+
+@app.route("/tickets/<int:id>/status-history", methods=["GET"])
+def get_status_history(id):
+
+    rows = StatusHistory.query.filter_by(
+        ticket_id=id
+    ).all()
+
+    return jsonify([
+        {
+            "old_status": r.old_status,
+            "new_status": r.new_status,
+            "changed_at": r.changed_at
+        }
+        for r in rows
+    ])
 
 
 if __name__ == "__main__":

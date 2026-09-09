@@ -8,6 +8,7 @@ from flask import Response
 from prometheus_client import Counter
 from prometheus_client import generate_latest
 from prometheus_client import CONTENT_TYPE_LATEST
+from prometheus_client import Gauge
 
 from datetime import datetime
 
@@ -41,8 +42,46 @@ REQUESTS = Counter(
     "Total Requests"
 )
 
+open_tickets = Gauge(
+    "ticket_open_total",
+    "Total open tickets"
+)
+
+sev1_tickets = Gauge(
+    "ticket_sev1_total",
+    "Total SEV1 tickets"
+)
+
+sla_breaches = Gauge(
+    "ticket_sla_breached_total",
+    "Total SLA breaches"
+)
+
+# Metric Refresh function
+def update_metrics():
+
+    open_tickets.set(
+        Ticket.query.filter(
+            Ticket.status != "CLOSED"
+        ).count()
+    )
+
+    sev1_tickets.set(
+        Ticket.query.filter_by(
+            severity="SEV1"
+        ).count()
+    )
+
+    sla_breaches.set(
+        Ticket.query.filter_by(
+            sla_breached=True
+        ).count()
+    )
+
+
 with app.app_context():
     db.create_all()
+    update_metrics()
 
 
 @app.route("/health")
@@ -97,7 +136,7 @@ def create_ticket():
     )
 
     db.session.add(ticket)
-    # evaluate_sla(ticket)
+    update_metrics()
     db.session.commit()
 
     return {"message": "created"}
@@ -195,6 +234,7 @@ def update_ticket(id):
     )
 
     evaluate_sla(ticket)
+    update_metrics()
     db.session.commit()
 
     return {
@@ -297,6 +337,7 @@ def acknowledge_ticket(id):
     return {
         "message": "ticket acknowledged"
     }
+
 
 # SLA evaluation function
 def evaluate_sla(ticket):

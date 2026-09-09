@@ -107,32 +107,28 @@ def update_ticket(id):
 
     data = request.json
 
-    ticket.title = data.get("title", ticket.title)
-    ticket.description = data.get(
-        "description",
-        ticket.description
-    )
-    ticket.status = data.get("status", ticket.status)
-    ticket.priority = data.get(
-        "priority",
-        ticket.priority
-    )
+    #
+    # Owner changes
+    #
 
     new_owner = data.get("owner")
 
     if new_owner and new_owner != ticket.owner:
 
-        history = AssignmentHistory(
+        assignment = AssignmentHistory(
             ticket_id=ticket.id,
             old_owner=ticket.owner,
             new_owner=new_owner
         )
 
-        db.session.add(history)
+        db.session.add(assignment)
 
         ticket.owner = new_owner
 
-    # Check Status
+    #
+    # Status changes
+    #
+
     new_status = data.get("status")
 
     if new_status and new_status != ticket.status:
@@ -160,9 +156,30 @@ def update_ticket(id):
 
         ticket.status = new_status
 
+    #
+    # General updates
+    #
+
+    ticket.title = data.get(
+        "title",
+        ticket.title
+    )
+
+    ticket.description = data.get(
+        "description",
+        ticket.description
+    )
+
+    ticket.priority = data.get(
+        "priority",
+        ticket.priority
+    )
+
     db.session.commit()
 
-    return {"message": "ticket updated"}
+    return {
+        "message": "ticket updated"
+    }
 
 @app.route("/tickets/<int:id>", methods=["DELETE"])
 def delete_ticket(id):

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-dd if=/dev/zero \
-of=/tmp/filler.bin \
-bs=100M \
-count=20
+echo "Filling Disk..."
+
+fallocate -l 2G /tmp/filler.bin
+
+echo "Disk Filled"

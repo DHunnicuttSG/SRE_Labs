@@ -91,6 +91,7 @@ def health():
 
 @app.route("/metrics")
 def metrics():
+    update_metrics()
     return Response(
         generate_latest(),
         mimetype=CONTENT_TYPE_LATEST

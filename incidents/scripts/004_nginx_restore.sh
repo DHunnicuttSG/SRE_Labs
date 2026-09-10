@@ -6,4 +6,5 @@ cp \
 
 docker restart nginx
 
-echo "Nginx Restored"
+echo "$(date) - Nginx restored" \
+>> /opt/SRE_Labs/incidents/logs/incidents.log

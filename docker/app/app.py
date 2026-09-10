@@ -136,9 +136,11 @@ def create_ticket():
     )
 
     db.session.add(ticket)
-    update_metrics()
+    
     db.session.commit()
 
+    update_metrics()
+    
     return {"message": "created"}
 
 @app.route("/tickets/<int:id>", methods=["GET"])
@@ -234,8 +236,10 @@ def update_ticket(id):
     )
 
     evaluate_sla(ticket)
-    update_metrics()
+    
     db.session.commit()
+
+    update_metrics()
 
     return {
         "message": "ticket updated"

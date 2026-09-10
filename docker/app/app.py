@@ -111,7 +111,8 @@ def get_tickets():
             "title": t.title,
             "status": t.status,
             "priority": t.priority,
-            "owner": t.owner
+            "owner": t.owner,
+            "severity": t.severity
         }
         for t in tickets
     ])

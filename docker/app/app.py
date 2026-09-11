@@ -4,6 +4,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import Response
+from flask import render_template
 
 from prometheus_client import Counter
 from prometheus_client import generate_latest
@@ -95,6 +96,29 @@ def metrics():
     return Response(
         generate_latest(),
         mimetype=CONTENT_TYPE_LATEST
+    )
+
+# Dashboard page
+@app.route("/")
+def home():
+
+    return render_template(
+        "index.html"
+    )
+
+@app.route("/ticket/<int:id>")
+def ticket_page(id):
+
+    return render_template(
+        "ticket.html",
+        ticket_id=id
+    )
+
+@app.route("/create-ticket")
+def create_ticket_page():
+
+    return render_template(
+        "create_ticket.html"
     )
 
 

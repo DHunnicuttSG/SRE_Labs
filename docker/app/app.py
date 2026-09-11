@@ -121,7 +121,46 @@ def create_ticket_page():
         "create_ticket.html"
     )
 
+@app.route("/dashboard")
+def dashboard():
 
+    return render_template(
+        "dashboard.html"
+    )
+
+@app.route("/ticket/<int:id>/history")
+def history_page(id):
+
+    return render_template(
+        "history.html",
+        ticket_id=id
+    )
+
+@app.route("/ticket/<int:id>/sla")
+def sla_page(id):
+
+    return render_template(
+        "sla.html",
+        ticket_id=id
+    )
+
+@app.route("/open-incidents")
+def open_incidents():
+
+    return render_template(
+        "open_incidents.html"
+    )
+
+@app.route("/sev1-incidents")
+def sev1_incidents():
+
+    return render_template(
+        "sev1_incidents.html"
+    )
+
+
+
+# routes that return json
 @app.route("/tickets", methods=["GET"])
 def get_tickets():
 

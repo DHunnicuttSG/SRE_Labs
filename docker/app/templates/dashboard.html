@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SRE Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+    <h1>SRE Dashboard</h1>
+    
+    <!-- Fixed Navigation Links -->
+    <div class="mb-3 d-flex gap-2">
+        <a href="/" class="btn btn-outline-primary">Ticket List</a>
+        <a href="/open-incidents" class="btn btn-outline-primary">Open Incidents</a>
+        <a href="/sev1-incidents" class="btn btn-outline-primary">SEV1 Incidents</a>
+        <a href="/create-ticket" class="btn btn-primary">Create Ticket</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Open Tickets</h5>
+                    <h2 id="openTickets">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>SEV1 Incidents</h5>
+                    <h2 id="sev1Tickets">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>SLA Breaches</h5>
+                    <h2 id="slaBreaches">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadDashboard() {
+            const response = await fetch("/tickets");
+            const tickets = await response.json();
+            const open = tickets.filter( t => t.status !== "CLOSED" );
+            const sev1 = tickets.filter( t => t.severity === "SEV1" );
+            const breached = tickets.filter( t => t.sla_breached === true );
+            document.getElementById( "openTickets" ).innerText = open.length;
+            document.getElementById( "sev1Tickets" ).innerText = sev1.length;
+            document.getElementById( "slaBreaches" ).innerText = breached.length;
+        }
+        loadDashboard();
+    </script>
+</body>
+</html>

@@ -93,6 +93,97 @@
     loadComments();
     </script>
 
+    <script>
+
+        async function acknowledgeTicket() {
+
+            await fetch(
+                `/tickets/${ticketId}/acknowledge`,
+                {
+                    method: "POST"
+                }
+            );
+
+            alert("Ticket Acknowledged");
+
+            loadTicket();
+        }
+
+        async function resolveTicket() {
+
+            await fetch(
+                `/tickets/${ticketId}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        status: "RESOLVED"
+                    })
+                }
+            );
+
+            alert("Ticket Resolved");
+
+            loadTicket();
+        }
+
+        async function closeTicket() {
+
+            await fetch(
+                `/tickets/${ticketId}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        status: "CLOSED"
+                    })
+                }
+            );
+
+            alert("Ticket Closed");
+
+            loadTicket();
+        }
+
+        async function showAssignDialog() {
+            const owner = prompt("Assign ticket to:");
+
+            if (!owner)
+                return;
+
+            await fetch(`/tickets/${ticketId}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        owner: owner
+                    })
+                }
+            );
+
+            alert(`Assigned to ${owner}`);
+
+            loadTicket();
+        }
+
+    </script>
+
 </div>
 </body>
 </html>

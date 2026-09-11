@@ -24,7 +24,7 @@ async function loadTickets() {
             <td>${ticket.id}</td>
 
             <td>
-                /ticket/${ticket.id}
+                <a href="/ticket/${ticket.id}">
                     ${ticket.title}
                 </a>
             </td>

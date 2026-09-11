@@ -47,7 +47,11 @@ sudo yum -y install terraform
 git clone https://github.com/DHunnicuttSG/SRE_Labs.git
 ```
 
-verify that the folder SRE_Labs is present.
+* Verify that the folder SRE_Labs is present.  
+
+You MAY need to update a few items in the repo.  
+* Change the region on line 3 of variables.tf if needed, **default is us-east-1**
+* Change the key name on line 3 of terraform.tfvars to your key name.  **default is ServerKey**
 
 ### 6. Run terraform to create the lab
 

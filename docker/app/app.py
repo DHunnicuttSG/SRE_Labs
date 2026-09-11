@@ -156,7 +156,13 @@ def get_ticket(id):
         "description": ticket.description,
         "status": ticket.status,
         "priority": ticket.priority,
-        "owner": ticket.owner
+        "severity": ticket.severity,
+        "owner": ticket.owner,
+        "created_at": ticket.created_at,
+        "acknowledged_at": ticket.acknowledged_at,
+        "resolved_at": ticket.resolved_at,
+        "sla_target_minutes": ticket.sla_target_minutes,
+        "sla_breached": ticket.sla_breached
     }
 
 @app.route("/tickets/<int:id>", methods=["PUT"])

@@ -3,8 +3,10 @@
     <a href="/ticket/{{ ticket_id }}" class="btn btn-outline-primary">View Ticket</a>
     <a href="/ticket/{{ ticket_id }}/history" class="btn btn-outline-secondary">History</a>
     <a href="/ticket/{{ ticket_id }}/sla" class="btn btn-outline-info">SLA</a>
+    <a href="/ticket/{{ ticket_id }}/comment" class="btn btn-outline-secondary">Add Comment</a>
     
     <button class="btn btn-outline-warning" onclick="acknowledgeTicket()">Acknowledge</button>
     <button class="btn btn-outline-success" onclick="resolveTicket()">Resolve</button>
+    <button class="btn btn-outline-dark" onclick="closeTicket()">Close</button>
   </div>
 </div>

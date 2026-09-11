@@ -111,8 +111,7 @@
 
         async function resolveTicket() {
 
-            await fetch(
-                `/tickets/${ticketId}`,
+            await fetch(`/tickets/${ticketId}`,
                 {
                     method: "PUT",
 

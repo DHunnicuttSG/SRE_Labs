@@ -285,7 +285,7 @@ def update_ticket(id):
         ticket.status = new_status
 
         if new_status == "RESOLVED":
-            ticket.resolved_at = datetime.timezone.utc()
+            ticket.resolved_at = datetime.datetime.now(datetime.timezone.utc)
 
     #
     # General updates

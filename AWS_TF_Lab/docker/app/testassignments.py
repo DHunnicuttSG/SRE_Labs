@@ -1,6 +1,6 @@
-from app import app
-from database import db
-from models import AssignmentHistory
+from AWS_TF_Lab.docker.app.app import app
+from AWS_TF_Lab.docker.app.database import db
+from AWS_TF_Lab.docker.app.models import AssignmentHistory
 
 with app.app_context():
 

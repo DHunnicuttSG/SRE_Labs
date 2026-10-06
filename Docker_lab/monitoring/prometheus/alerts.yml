@@ -1,0 +1,29 @@
+groups:
+  - name: docker-lab-services
+    rules:
+      - alert: LabAppDown
+        expr: up{job=~"ticket_app|inventory_app"} == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "A lab application is unreachable"
+          description: "Prometheus cannot scrape {{ $labels.job }} at {{ $labels.instance }}."
+
+      - alert: TicketSlaBreaches
+        expr: ticket_sla_breached_total > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "One or more ticket SLAs are breached"
+          description: "The ticket application reports {{ $value }} SLA breaches."
+
+      - alert: InventoryLatencyHigh
+        expr: histogram_quantile(0.95, sum by (le) (rate(inventory_http_request_duration_seconds_bucket[5m]))) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Inventory app p95 latency is high"
+          description: "The inventory app's 5-minute p95 request latency is above one second."

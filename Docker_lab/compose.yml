@@ -1,0 +1,183 @@
+name: sre-docker-lab
+
+services:
+  ticket-db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${TICKET_DB_NAME:-ticketdb}
+      POSTGRES_USER: ${TICKET_DB_USER:-labuser}
+      POSTGRES_PASSWORD: ${TICKET_DB_PASSWORD:-ticketdevpass}
+    volumes:
+      - ticket_db_data:/var/lib/postgresql/data
+    networks:
+      - ticket-data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  ticket-app:
+    build: ./ticket-app
+    restart: unless-stopped
+    environment:
+      DB_HOST: ticket-db
+      DB_PORT: 5432
+      DB_NAME: ${TICKET_DB_NAME:-ticketdb}
+      DB_USER: ${TICKET_DB_USER:-labuser}
+      DB_PASSWORD: ${TICKET_DB_PASSWORD:-ticketdevpass}
+      APP_LOG_PATH: /var/log/lab/ticket-app.log
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "${TICKET_APP_PORT:-5050}:5000"
+    volumes:
+      - lab_logs:/var/log/lab
+    networks:
+      - lab-network
+      - ticket-data
+    depends_on:
+      ticket-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  inventory-db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${INVENTORY_DB_NAME:-inventorydb}
+      MYSQL_USER: ${INVENTORY_DB_USER:-inventoryuser}
+      MYSQL_PASSWORD: ${INVENTORY_DB_PASSWORD:-inventorydevpass}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootdevpass}
+    volumes:
+      - inventory_db_data:/var/lib/mysql
+    networks:
+      - inventory-data
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  inventory-app:
+    build: ./inventory-app
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: inventory-db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${INVENTORY_DB_NAME:-inventorydb}
+      MYSQL_USER: ${INVENTORY_DB_USER:-inventoryuser}
+      MYSQL_PASSWORD: ${INVENTORY_DB_PASSWORD:-inventorydevpass}
+      APP_LOG_PATH: /var/log/lab/inventory-app.log
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "${INVENTORY_APP_PORT:-5051}:5001"
+    volumes:
+      - lab_logs:/var/log/lab
+    networks:
+      - lab-network
+      - inventory-data
+    depends_on:
+      inventory-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5001/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+    ports:
+      - "${PROMETHEUS_PORT:-9091}:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - lab-network
+
+  alertmanager:
+    image: prom/alertmanager:v0.28.1
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+    ports:
+      - "${ALERTMANAGER_PORT:-9094}:9093"
+    volumes:
+      - ./monitoring/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    networks:
+      - lab-network
+
+  loki:
+    image: grafana/loki:3.5.0
+    restart: unless-stopped
+    command: -config.file=/etc/loki/config.yml
+    volumes:
+      - ./monitoring/loki/config.yml:/etc/loki/config.yml:ro
+      - loki_data:/loki
+    networks:
+      - lab-network
+
+  alloy:
+    image: grafana/alloy:v1.10.2
+    restart: unless-stopped
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - /etc/alloy/config.alloy
+    volumes:
+      - ./monitoring/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - lab_logs:/var/log/lab:ro
+    networks:
+      - lab-network
+    depends_on:
+      - loki
+
+  grafana:
+    image: grafana/grafana:12.1.1
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+    ports:
+      - "${GRAFANA_PORT:-3030}:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    networks:
+      - lab-network
+    depends_on:
+      - prometheus
+      - loki
+
+networks:
+  lab-network:
+    driver: bridge
+  ticket-data:
+    driver: bridge
+    internal: true
+  inventory-data:
+    driver: bridge
+    internal: true
+
+volumes:
+  ticket_db_data:
+  inventory_db_data:
+  prometheus_data:
+  loki_data:
+  grafana_data:
+  lab_logs:

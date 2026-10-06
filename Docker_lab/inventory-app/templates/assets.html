@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asset Inventory</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">Fieldnotes <span>/ Asset inventory</span></a>
+    <a class="button button-light" href="{{ url_for('create_asset') }}">Add asset <span aria-hidden="true">+</span></a>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">OPERATIONS CATALOG</p>
+      <h1>Asset inventory</h1>
+      <p>Track the systems your team is responsible for.</p>
+    </section>
+    <section class="inventory" aria-label="Assets">
+      <div class="table-heading"><span>{{ assets|length }} assets</span><span>MYSQL / INVENTORY</span></div>
+      {% if assets %}
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Name</th><th>Owner</th><th>Environment</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+          {% for asset in assets %}
+            <tr>
+              <td class="asset-name">{{ asset.name }}</td>
+              <td>{{ asset.owner }}</td>
+              <td>{{ asset.environment }}</td>
+              <td><span class="status status-{{ asset.status|lower }}">{{ asset.status }}</span></td>
+              <td class="actions">
+                <a href="{{ url_for('edit_asset', asset_id=asset.id) }}">Edit</a>
+                <form action="{{ url_for('delete_asset', asset_id=asset.id) }}" method="post" onsubmit="return confirm('Delete this asset?')">
+                  <button class="text-button" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty-state"><strong>No assets yet</strong><p>Add the first system to the inventory.</p><a href="{{ url_for('create_asset') }}">Create an asset</a></div>
+      {% endif %}
+    </section>
+  </main>
+  <footer><span>Inventory service</span><span>MySQL-backed operations lab</span></footer>
+</body>
+</html>

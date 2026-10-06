@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ 'Edit' if asset else 'Add' }} asset</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">Fieldnotes <span>/ Asset inventory</span></a>
+    <a class="button button-light" href="{{ url_for('index') }}">Back to inventory</a>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">OPERATIONS CATALOG</p>
+      <h1>{{ 'Edit asset' if asset else 'Add an asset' }}</h1>
+      <p>Record ownership and operational state.</p>
+    </section>
+    <form class="asset-form" method="post">
+      {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+      <label>Name<input name="name" maxlength="120" required value="{{ request.form.get('name', asset.name if asset else '') }}"></label>
+      <label>Owner<input name="owner" maxlength="120" required value="{{ request.form.get('owner', asset.owner if asset else '') }}"></label>
+      <label>Environment<input name="environment" maxlength="40" required placeholder="Production, staging, development" value="{{ request.form.get('environment', asset.environment if asset else '') }}"></label>
+      <label>Status
+        {% set selected_status = request.form.get('status', asset.status if asset else 'Healthy') %}
+        <select name="status" required>
+          {% for status in statuses %}
+          <option value="{{ status }}" {{ 'selected' if selected_status == status else '' }}>{{ status }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <div class="form-actions"><a href="{{ url_for('index') }}">Cancel</a><button class="button" type="submit">{{ 'Save changes' if asset else 'Create asset' }}</button></div>
+    </form>
+  </main>
+  <footer><span>Inventory service</span><span>MySQL-backed operations lab</span></footer>
+</body>
+</html>

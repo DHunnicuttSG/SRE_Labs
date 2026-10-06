@@ -1,6 +1,6 @@
-from AWS_TF_Lab.docker.app.app import app
-from AWS_TF_Lab.docker.app.database import db
-from AWS_TF_Lab.docker.app.models import Comment
+from app import app
+from database import db
+from models import Comment
 
 with app.app_context():
 

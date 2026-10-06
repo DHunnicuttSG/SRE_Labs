@@ -13,8 +13,8 @@ from prometheus_client import Gauge
 
 from datetime import datetime
 
-from AWS_TF_Lab.docker.app.database import db
-from AWS_TF_Lab.docker.app.models import Ticket, Comment, AssignmentHistory, StatusHistory
+from database import db
+from models import Ticket, Comment, AssignmentHistory, StatusHistory
 
 app = Flask(__name__)
 

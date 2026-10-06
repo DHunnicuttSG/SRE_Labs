@@ -45,7 +45,7 @@ git clone ${github_repo}
 
 echo "Repository cloned successfully"
 
-cd /opt/SRE_Labs/docker
+cd /opt/SRE_Labs/AWS_TF_Lab/docker
 
 docker compose up -d
 

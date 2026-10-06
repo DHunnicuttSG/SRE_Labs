@@ -1,4 +1,4 @@
-from AWS_TF_Lab.docker.app.database import db
+from database import db
 
 class Ticket(db.Model):
 

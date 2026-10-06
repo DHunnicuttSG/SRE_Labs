@@ -47,7 +47,7 @@ sudo yum -y install terraform
 git clone https://github.com/DHunnicuttSG/SRE_Labs.git
 ```
 
-* Verify that the folder SRE_Labs is present.  
+* Verify that the folder SRE_Labs is present, with the lab files in `AWS_TF_Lab`.  
 
 You MAY need to update a few items in the repo.  
 * Change the region on line 3 of variables.tf if needed, **default is us-east-1**
@@ -57,7 +57,7 @@ You MAY need to update a few items in the repo.
 
 Move to the terraform folder
 ```bash
-cd ~/SRE_Labs/terraform
+cd ~/SRE_Labs/AWS_TF_Lab/terraform
 ```
 
 Initialize terraform

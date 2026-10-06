@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat > /opt/SRE_Labs/docker/nginx/default.conf << EOF
+cat > /opt/SRE_Labs/AWS_TF_Lab/docker/nginx/default.conf << EOF
 server {
 
     listen 80;
@@ -15,4 +15,4 @@ EOF
 docker restart nginx
 
 echo "$(date) - Nginx incident injected" \
->> /opt/SRE_Labs/incidents/logs/incidents.log
+>> /opt/SRE_Labs/AWS_TF_Lab/incidents/logs/incidents.log

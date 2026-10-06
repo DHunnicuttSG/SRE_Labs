@@ -1,6 +1,6 @@
-from AWS_TF_Lab.docker.app.app import app
-from AWS_TF_Lab.docker.app.database import db
-from AWS_TF_Lab.docker.app.models import StatusHistory
+from app import app
+from database import db
+from models import StatusHistory
 
 with app.app_context():
 

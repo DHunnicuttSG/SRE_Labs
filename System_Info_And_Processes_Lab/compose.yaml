@@ -1,0 +1,5 @@
+services:
+  system-info-and-processes-lab:
+    build: .
+    stdin_open: true
+    tty: true

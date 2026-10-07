@@ -1,0 +1,5 @@
+services:
+  networking-lab:
+    build: .
+    stdin_open: true
+    tty: true

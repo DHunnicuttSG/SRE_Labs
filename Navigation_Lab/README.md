@@ -5,12 +5,22 @@ A short, repeatable command-line exercise for practicing filesystem navigation a
 ## Run with Docker
 
 From this directory, build and start the interactive lab:
-
+* If Docker Compose is not installed use these commands:
 ```sh
-docker compose run --build --rm navigation-lab
+sudo mkdir -p /usr/local/lib/docker/cli-plugins
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.39.4/docker-compose-linux-x86_64 \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+docker compose version
 ```
 
-Inside the container, follow `STUDENT.md`. Run the grader with:
+Otherwise just run these two commands:
+```sh
+docker compose build navigation-lab
+docker compose run --rm navigation-lab
+```
+
+You are now inside the container, follow `STUDENT.md`. Run the grader with:
 
 ```sh
 bash /opt/navigation-lab/grade.sh

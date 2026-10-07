@@ -1,0 +1,5 @@
+services:
+  navigation-lab:
+    build: .
+    stdin_open: true
+    tty: true

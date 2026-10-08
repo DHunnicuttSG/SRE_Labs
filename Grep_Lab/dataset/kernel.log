@@ -1,0 +1,15 @@
+kernel: boot sequence started
+kernel: memory map loaded
+kernel: device driver initialized
+kernel: scheduler ready
+kernel: routine check completed
+kernel: CRITICAL disk controller reset
+kernel: retrying disk operation
+kernel: device queue drained
+kernel: normal operation resumed
+kernel: temperature check started
+kernel: sensor reading stable
+kernel: CRITICAL thermal limit approached
+kernel: throttling processor
+kernel: alert sent to monitoring
+kernel: check completed

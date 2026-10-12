@@ -10,7 +10,7 @@ This repository contains hands-on labs for Linux administration, site reliabilit
 | Docker SRE | Explore ticketing and inventory applications alongside Prometheus, Grafana, Loki, Alloy, and Alertmanager. | [75% Complete](Docker_lab/README.md) |
 | Linux Navigation | Practice shell navigation and basic file and directory operations. | [Lab guide](Navigation_Lab/README.md) |
 |Linux Grep|Practice fixed-string and regular-expression searches, grep options, recursive search, and pipelines.|[Lab guide](Grep_Lab/README.md)|
-| Linux Networking | Inspect interfaces, routes, DNS, connectivity, and a local HTTP service. | [Lab guide / Not Tested](Linux_Networking_Lab/README.md) |
+| Linux Networking | Inspect interfaces, routes, DNS, connectivity, and a local HTTP service. | [Lab guide](Linux_Networking_Lab/README.md) |
 | System Info and Processes | Collect system resource information and inspect and manage a test process. | [Lab guide / Not Tested](System_Info_And_Processes_Lab/README.md) |
 |Linux Permissions | Add remove permissions with files and folders | [Lab guide / Not Tested](Permissions_Lab/README.md)|
 |User/Group Admin| Linux user and group admin | In progress|

@@ -42,8 +42,7 @@ cat > "$lab_dir/combined/backup.sh" <<'EOF'
 printf 'Combined task ran as %s.\n' "$(id -un)"
 EOF
 
-chmod 0644 "$lab_dir/files/report.txt" \
-  "$lab_dir/files/secret.txt" \
+chmod 0644 "$lab_dir/files/secret.txt" \
   "$lab_dir/files/team_notes.txt" \
   "$lab_dir/files/inventory.txt" \
   "$lab_dir/symbolic/file.txt" \
@@ -51,7 +50,8 @@ chmod 0644 "$lab_dir/files/report.txt" \
   "$lab_dir/conversion/"*.txt \
   "$lab_dir/stretch/"*.txt \
   "$lab_dir/combined/backup.sh"
-chmod 0755 "$lab_dir/files/backup.sh"
+chmod 444 "$lab_dir/files/report.txt"
+chmod 0600 "$lab_dir/files/backup.sh"
 chmod 0755 "$lab_dir/directories" "$lab_dir/files" "$lab_dir/symbolic" \
   "$lab_dir/umask" "$lab_dir/troubleshooting" "$lab_dir/conversion" \
   "$lab_dir/stretch" "$lab_dir/combined"

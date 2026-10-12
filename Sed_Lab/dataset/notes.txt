@@ -1,0 +1,2 @@
+Remember to review the critical service alerts after the deployment.
+The word critical also appears in this note for optional practice.

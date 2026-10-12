@@ -1,0 +1,5 @@
+services:
+  sed-lab:
+    build: .
+    stdin_open: true
+    tty: true

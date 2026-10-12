@@ -1,0 +1,9 @@
+Deployment dates:
+2026-01-15 release one
+2026-02-28 release two
+2026-12-05 release three
+26-03-04 short year
+2026-3-04 single digit month
+2026-03-4 single digit day
+2026-13-01 shaped like a date but invalid month
+prefix2026-04-06suffix is embedded in word characters

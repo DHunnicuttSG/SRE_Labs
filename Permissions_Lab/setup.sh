@@ -45,11 +45,11 @@ EOF
 chmod 0644 "$lab_dir/files/secret.txt" \
   "$lab_dir/files/team_notes.txt" \
   "$lab_dir/files/inventory.txt" \
-  "$lab_dir/symbolic/file.txt" \
   "$lab_dir/troubleshooting/backup.sh" \
   "$lab_dir/conversion/"*.txt \
   "$lab_dir/stretch/"*.txt \
   "$lab_dir/combined/backup.sh"
+chmod 640 "$lab_dir/symbolic/file.txt"
 chmod 444 "$lab_dir/files/report.txt"
 chmod 0600 "$lab_dir/files/backup.sh"
 chmod 0755 "$lab_dir/directories" "$lab_dir/files" "$lab_dir/symbolic" \

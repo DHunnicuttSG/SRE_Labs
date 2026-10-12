@@ -10,7 +10,7 @@ This repository contains hands-on labs for Linux administration, site reliabilit
 |Linux Grep|Practice fixed-string and regular-expression searches, grep options, recursive search, and pipelines.|[Lab guide](Grep_Lab/README.md)|
 | Linux Networking | Inspect interfaces, routes, DNS, connectivity, and a local HTTP service. | [Lab guide](Linux_Networking_Lab/README.md) |
 | System Info and Processes | Collect system resource information and inspect and manage a test process. | [Lab guide](System_Info_And_Processes_Lab/README.md) |
-|Linux Permissions | Add remove permissions with files and folders | [Lab guide / Not Tested](Permissions_Lab/README.md)|
+|Linux Permissions | Add remove permissions with files and folders | [Lab guide](Permissions_Lab/README.md)|
 |User/Group Admin| Linux user and group admin | In progress|
 
 <!-- | AWS Terraform Lab | Provision an AWS EC2 host with Terraform and run the SRE lab environment on it. | [Build guide](AWS_TF_Lab/How_To_Build_Lab.md) | -->

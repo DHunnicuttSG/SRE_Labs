@@ -21,6 +21,8 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Environment Variables | Practice  | planning |
 | Cron Jobs | Practice  | planning |
 | Linux Aliases / Shortcuts | Practice  | planning |
+| Python | Practice  | planning |
+| SQL | Practice  | planning |
 
 <!-- | Docker SRE | Explore ticketing and inventory apps alongside Prometheus, Grafana, Loki, Alloy, and Alertmanager. | [Lab guide](Docker_lab/README.md) |
 | AWS Terraform | Provision AWS infrastructure with Terraform. | [Build guide](AWS_TF_Lab/How_To_Build_Lab.md) | -->

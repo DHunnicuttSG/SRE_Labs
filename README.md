@@ -13,7 +13,14 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Networking | Inspect interfaces, routes, DNS, connectivity, and a local HTTP service. | [Lab guide](Linux_Networking_Lab/README.md) |
 | System Info and Processes | Collect system resource information and inspect and manage a test process. | [Lab guide](System_Info_And_Processes_Lab/README.md) |
 | Linux Permissions | Practice changing permissions on files and directories. | [Lab guide](Permissions_Lab/README.md) |
-| User/Group Admin | Practice Linux user and group administration. | In progress |
+| User/Group Admin | Practice Linux user and group administration. | planning |
+| Redirection And Pipes | Practice  | planning |
+| Hard And Soft links | Practice  | planning |
+| Systemctl | Practice  | planning |
+| Journalctl | Practice  | planning |
+| Linux Environment Variables | Practice  | planning |
+| Cron Jobs | Practice  | planning |
+| Linux Aliases / Shortcuts | Practice  | planning |
 
 <!-- | Docker SRE | Explore ticketing and inventory apps alongside Prometheus, Grafana, Loki, Alloy, and Alertmanager. | [Lab guide](Docker_lab/README.md) |
 | AWS Terraform | Provision AWS infrastructure with Terraform. | [Build guide](AWS_TF_Lab/How_To_Build_Lab.md) | -->

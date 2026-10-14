@@ -21,6 +21,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Environment Variables | Practice  | planning |
 | Cron Jobs | Practice  | planning |
 | Linux Aliases / Shortcuts | Practice  | planning |
+| Linux Find | Practice  | planning |
 | Python | Practice  | planning |
 | SQL | Practice  | planning |
 

@@ -86,13 +86,13 @@ docker compose run --rm navigation-lab
 
 Follow that lab's `STUDENT.md` and README for the exercise and grader command. Most shell labs run in temporary containers, so work inside the container is discarded when you exit.
 
-### Docker SRE App Lab
+<!-- ### Docker SRE App Lab
 
 The Docker SRE lab starts web apps and monitoring services rather than an interactive shell. Follow [its README](Docker_lab/README.md) for startup, URLs, credentials, and shutdown commands. Do not expose the training services publicly without securing them first.
 
 ### AWS Terraform Lab
 
-The Terraform lab provisions AWS resources and is separate from running the command-line labs on an EC2 host. Follow the [Terraform build guide](AWS_TF_Lab/How_To_Build_Lab.md), and review the resources it creates and their potential AWS costs before deploying.
+The Terraform lab provisions AWS resources and is separate from running the command-line labs on an EC2 host. Follow the [Terraform build guide](AWS_TF_Lab/How_To_Build_Lab.md), and review the resources it creates and their potential AWS costs before deploying. -->
 
 ## Adding a Lab
 

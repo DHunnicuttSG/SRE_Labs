@@ -1,0 +1,5 @@
+services:
+  awk-lab:
+    build: .
+    stdin_open: true
+    tty: true

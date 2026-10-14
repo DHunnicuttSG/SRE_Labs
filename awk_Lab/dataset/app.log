@@ -1,0 +1,7 @@
+INFO application started
+DEBUG cache key miss
+INFO request accepted
+ERROR database unavailable
+DEBUG retry counter is 2
+WARNING response time elevated
+INFO request completed

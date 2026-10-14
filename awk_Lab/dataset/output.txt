@@ -1,0 +1,6 @@
+Build completed with success
+SUCCESS: deployment finished
+The operation reported success
+No success was recorded for the test
+All checks passed successfully
+The final success marker is present

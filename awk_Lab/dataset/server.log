@@ -1,0 +1,6 @@
+ERROR web listener failed to bind
+INFO starting worker pool
+ERROR request queue is full
+WARN connection limit nearly reached
+ ERROR prefixed by whitespace, not at line start
+ERROR upstream returned status 503

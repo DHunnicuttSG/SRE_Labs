@@ -1,0 +1,6 @@
+Line 1: all systems operational
+Line 2: request failed during validation
+Line 3: retry failed because the host was busy
+Line 4: no failures were reported
+Line 5: FAILED job was added to the queue
+Line 6: final review passed

@@ -1,0 +1,5 @@
+services:
+  linux-find-lab:
+    build: .
+    stdin_open: true
+    tty: true

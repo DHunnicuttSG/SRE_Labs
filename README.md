@@ -14,7 +14,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | System Info and Processes | Collect system resource information and inspect and manage a test process. | [Lab guide](System_Info_And_Processes_Lab/README.md) |
 | Linux Permissions | Practice changing permissions on files and directories. | [Lab guide](Permissions_Lab/README.md) |
 | User/Group Admin | Practice Linux user and group administration. | planning |
-| Redirection and Pipes | Practice Bash input/output redirection, here-documents, here-strings, and pipelines. | [Lab guide](Redirection_Pipes_Lab/README.md) |
+| Redirection and Pipes | Practice Bash input/output redirection, here-documents, here-strings, and pipelines. | [Lab guide - Not Tested](Redirection_Pipes_Lab/README.md) |
 | Hard And Soft links | Practice  | planning |
 | Systemctl | Practice  | planning |
 | Journalctl | Practice  | planning |

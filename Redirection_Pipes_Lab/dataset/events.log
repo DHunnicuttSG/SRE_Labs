@@ -1,0 +1,6 @@
+INFO service started
+ERROR database unavailable
+WARN retrying database
+ERROR connection timeout
+INFO request completed
+DEBUG ERROR synthetic diagnostic

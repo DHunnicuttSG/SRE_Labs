@@ -1,0 +1,1 @@
+Configuration fixtures for the redirection and pipes exercises.

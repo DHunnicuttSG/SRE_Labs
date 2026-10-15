@@ -1,0 +1,5 @@
+services:
+  redirection-pipes-lab:
+    build: .
+    stdin_open: true
+    tty: true

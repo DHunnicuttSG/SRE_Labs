@@ -1,0 +1,5 @@
+services:
+  environment-variables-lab:
+    build: .
+    stdin_open: true
+    tty: true

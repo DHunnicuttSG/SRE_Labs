@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -u
+
+printf 'service=%s\n' "${APP_NAME:-unset}"
+printf 'environment=%s\n' "${APP_ENV:-unset}"
+printf 'region=%s\n' "${APP_REGION:-unset}"
+printf 'log_level=%s\n' "${APP_LOG_LEVEL:-info}"
+printf 'config=%s\n' "${APP_CONFIG:-unset}"

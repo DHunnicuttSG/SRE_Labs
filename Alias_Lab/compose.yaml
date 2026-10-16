@@ -1,0 +1,5 @@
+services:
+  alias-lab:
+    build: .
+    stdin_open: true
+    tty: true

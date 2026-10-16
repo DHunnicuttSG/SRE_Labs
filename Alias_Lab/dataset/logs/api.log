@@ -1,0 +1,5 @@
+2026-10-14T09:01:03Z INFO GET /health status=200 duration=8ms
+2026-10-14T09:04:18Z WARN upstream latency elevated duration=1200ms
+2026-10-14T09:05:30Z ERROR upstream request timeout target=inventory
+2026-10-14T09:05:31Z INFO retrying upstream request attempt=1
+2026-10-14T09:05:45Z INFO upstream request recovered status=200

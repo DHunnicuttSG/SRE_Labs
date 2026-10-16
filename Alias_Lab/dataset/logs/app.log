@@ -1,0 +1,6 @@
+2026-10-14T09:00:01Z INFO checkout service started
+2026-10-14T09:02:14Z INFO database connection pool ready
+2026-10-14T09:05:32Z ERROR database connection timeout after 5s
+2026-10-14T09:05:33Z WARN retry scheduled in 10s
+2026-10-14T09:05:44Z INFO database connection recovered
+2026-10-14T09:10:02Z INFO health check passed

@@ -1,0 +1,19 @@
+# /etc/systemd/system/payments-api.service
+[Unit]
+Description=Payments API application server
+Wants=network-online.target
+After=network-online.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=payments
+Group=payments
+WorkingDirectory=/opt/payments
+ExecStart=/opt/payments/bin/server
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/etc/payments/payments-api.env
+
+[Install]
+WantedBy=multi-user.target

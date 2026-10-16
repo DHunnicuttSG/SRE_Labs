@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+lab_dir="${HOME:?HOME must be set}/systemctl_practice"
+unit=''
+boot='current'
+priority_limit=7
+line_limit=0
+since=''
+until=''
+kernel_only=false
+pid_filter=''
+uid_filter=''
+
+priority_number() {
+  case "${1,,}" in
+    emerg|panic) printf '0' ;;
+    alert) printf '1' ;;
+    crit|critical) printf '2' ;;
+    err|error) printf '3' ;;
+    warning|warn) printf '4' ;;
+    notice) printf '5' ;;
+    info) printf '6' ;;
+    debug) printf '7' ;;
+    *) return 1 ;;
+  esac
+}
+
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -u)
+      unit="${2:?unit name required}"
+      shift 2
+      ;;
+    -b)
+      if [[ "$#" -ge 2 && ( "$2" =~ ^-[0-9]+$ || "$2" =~ ^[0-9]+$ || "$2" =~ ^[[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{12}$ ) ]]; then
+        boot="$2"
+        shift 2
+      else
+        boot='current'
+        shift
+      fi
+      ;;
+    -n)
+      line_limit="${2:?line count required}"
+      shift 2
+      ;;
+    -p|--priority)
+      priority_limit="$(priority_number "${2:?priority required}")" || {
+        printf 'Unknown journal priority: %s\n' "${2-}" >&2
+        exit 2
+      }
+      shift 2
+      ;;
+    --since)
+      since="${2:?timestamp required}"
+      since="${since// /T}"
+      [[ "$since" == *Z ]] || since="${since}Z"
+      shift 2
+      ;;
+    --until)
+      until="${2:?timestamp required}"
+      until="${until// /T}"
+      [[ "$until" == *Z ]] || until="${until}Z"
+      shift 2
+      ;;
+    -k)
+      kernel_only=true
+      shift
+      ;;
+    --list-boots)
+      cat "$lab_dir/fixtures/boots.txt"
+      exit 0
+      ;;
+    -f|--follow)
+      printf 'Live follow mode is unavailable in the fixture lab; use a captured snapshot.\n' >&2
+      exit 2
+      ;;
+    _PID=*)
+      pid_filter="${1#_PID=}"
+      shift
+      ;;
+    _UID=*)
+      uid_filter="${1#_UID=}"
+      shift
+      ;;
+    --no-pager|-o|--output|--utc)
+      if [[ "$1" == '-o' || "$1" == '--output' ]]; then shift 2; else shift; fi
+      ;;
+    *)
+      printf 'Unsupported fixture journalctl option: %s\n' "$1" >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [[ "$boot" == '-1' ]]; then
+  log_file="$lab_dir/fixtures/journal-previous-boot.log"
+elif [[ "$boot" == 'current' || "$boot" == '0' ]]; then
+  if [[ "$kernel_only" == true ]]; then
+    log_file="$lab_dir/fixtures/kernel.log"
+  else
+    log_file="$lab_dir/fixtures/journal-current-boot.log"
+  fi
+else
+  printf 'Boot %s is not present in the fixture journal.\n' "$boot" >&2
+  exit 2
+fi
+
+if [[ "$kernel_only" == true && -n "$unit" ]]; then
+  printf 'Choose either a unit filter or the kernel filter.\n' >&2
+  exit 2
+fi
+
+matches=()
+while IFS= read -r record || [[ -n "$record" ]]; do
+  read -r timestamp priority record_unit record_pid record_uid message <<< "$record"
+  [[ -n "${timestamp-}" ]] || continue
+  [[ "$priority" =~ ^[0-7]$ ]] || continue
+  (( priority <= priority_limit )) || continue
+  [[ -z "$unit" || "$record_unit" == "$unit" ]] || continue
+  [[ "$kernel_only" != true || "$record_unit" == 'kernel' ]] || continue
+  [[ -z "$pid_filter" || "$record_pid" == "$pid_filter" ]] || continue
+  [[ -z "$uid_filter" || "$record_uid" == "$uid_filter" ]] || continue
+  [[ -z "$since" || "$timestamp" > "$since" || "$timestamp" == "$since" ]] || continue
+  [[ -z "$until" || "$timestamp" < "$until" || "$timestamp" == "$until" ]] || continue
+  matches+=("${timestamp} ${record_unit}[${record_pid}]: ${message}")
+done < "$log_file"
+
+if (( line_limit > 0 && ${#matches[@]} > line_limit )); then
+  matches=("${matches[@]: -line_limit}")
+fi
+
+if (( ${#matches[@]} > 0 )); then
+  printf '%s\n' "${matches[@]}"
+fi

@@ -1,0 +1,4 @@
+  UNIT                 LOAD   ACTIVE SUB     DESCRIPTION
+  chronyd.service      loaded active running NTP client/server
+● payments-api.service loaded failed failed  Payments API application server
+  postgresql.service   loaded active running PostgreSQL database server

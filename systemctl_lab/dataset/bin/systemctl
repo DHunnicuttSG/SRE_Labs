@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+lab_dir="${HOME:?HOME must be set}/systemctl_practice"
+service='payments-api.service'
+
+unsupported() {
+  printf 'This fixture-backed systemctl supports read-only queries only: %s\n' "$*" >&2
+  return 2
+}
+
+if [[ "$#" -eq 0 ]]; then
+  unsupported 'no command supplied'
+  exit $?
+fi
+
+case "$1" in
+  --failed)
+    cat "$lab_dir/fixtures/failed-units.txt"
+    ;;
+  list-units)
+    cat "$lab_dir/fixtures/list-units.txt"
+    ;;
+  status)
+    if [[ "${2-}" != "$service" ]]; then
+      printf 'Unit %s could not be found.\n' "${2-}" >&2
+      exit 4
+    fi
+    cat "$lab_dir/fixtures/status.txt"
+    exit 3
+    ;;
+  is-active)
+    if [[ "${2-}" != "$service" ]]; then
+      printf 'unknown\n'
+      exit 4
+    fi
+    printf 'failed\n'
+    exit 3
+    ;;
+  is-enabled)
+    if [[ "${2-}" != "$service" ]]; then
+      printf 'not-found\n'
+      exit 4
+    fi
+    printf 'enabled\n'
+    ;;
+  show)
+    if [[ "${2-}" != "$service" ]]; then
+      printf 'Unit %s could not be found.\n' "${2-}" >&2
+      exit 4
+    fi
+    shift 2
+    if [[ "$#" -eq 0 ]]; then
+      cat "$lab_dir/fixtures/show-properties.txt"
+      exit 0
+    fi
+    while [[ "$#" -gt 0 ]]; do
+      if [[ "$1" == '-p' && "$#" -ge 2 ]]; then
+        property="$2"
+        grep -F "${property}=" "$lab_dir/fixtures/show-properties.txt" || exit 1
+        shift 2
+      else
+        unsupported "$*"
+        exit $?
+      fi
+    done
+    ;;
+  cat)
+    if [[ "${2-}" != "$service" ]]; then
+      printf 'Unit %s could not be found.\n' "${2-}" >&2
+      exit 4
+    fi
+    cat "$lab_dir/fixtures/payments-api.service"
+    ;;
+  list-dependencies)
+    if [[ "${2-}" != "$service" ]]; then
+      printf 'Unit %s could not be found.\n' "${2-}" >&2
+      exit 4
+    fi
+    cat "$lab_dir/fixtures/dependencies.txt"
+    ;;
+  *)
+    unsupported "$*"
+    exit $?
+    ;;
+esac

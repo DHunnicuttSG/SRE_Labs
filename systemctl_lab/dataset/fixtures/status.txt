@@ -1,0 +1,9 @@
+● payments-api.service - Payments API application server
+     Loaded: loaded (/etc/systemd/system/payments-api.service; enabled; preset: enabled)
+           Active: failed (Result: exit-code) since Fri 2026-10-16 09:39:44 UTC; 5min ago
+          Process: 901 ExecStart=/opt/payments/bin/server (code=exited, status=1/FAILURE)
+      Main PID: 901 (code=exited, status=1/FAILURE)
+        CPU: 2.841s
+
+Oct 16 09:35:27 app-prod payments-api[901]: database connection timed out after 30s
+Oct 16 09:39:44 app-prod systemd[1]: payments-api.service: Unit entered failed state

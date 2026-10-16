@@ -1,0 +1,8 @@
+Id=payments-api.service
+LoadState=loaded
+ActiveState=failed
+SubState=failed
+Result=exit-code
+ExecMainStatus=1
+FragmentPath=/etc/systemd/system/payments-api.service
+UnitFileState=enabled

@@ -1,0 +1,5 @@
+2026-10-16T09:20:16Z 4 kernel 0 0 nvme0: I/O timeout on queue 3
+2026-10-16T09:21:04Z 6 kernel 0 0 nvme0: controller reset completed
+2026-10-16T09:34:11Z 3 kernel 0 0 Out of memory: Killed process 719 (analytics-worker)
+2026-10-16T09:34:11Z 4 kernel 0 0 Memory cgroup out of memory: Killed process 719
+2026-10-16T09:40:08Z 5 kernel 0 0 audit: backlog limit exceeded

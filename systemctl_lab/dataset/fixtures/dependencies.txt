@@ -1,0 +1,3 @@
+payments-api.service
+● ├─postgresql.service
+● └─system.slice

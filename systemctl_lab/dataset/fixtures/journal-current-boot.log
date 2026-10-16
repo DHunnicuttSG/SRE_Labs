@@ -1,0 +1,11 @@
+2026-10-16T09:10:03Z 6 payments-api.service 801 998 Starting Payments API
+2026-10-16T09:10:04Z 6 payments-api.service 801 998 Listening on 0.0.0.0:8080
+2026-10-16T09:31:17Z 4 payments-api.service 842 998 database connection latency above threshold
+2026-10-16T09:33:18Z 3 payments-api.service 842 998 database connection timed out after 30s
+2026-10-16T09:33:18Z 6 payments-api.service 842 998 shutting down after fatal database error
+2026-10-16T09:33:19Z 3 payments-api.service 1 0 payments-api.service: Main process exited with status 1
+2026-10-16T09:33:19Z 4 payments-api.service 1 0 payments-api.service: Failed with result exit-code
+2026-10-16T09:35:21Z 4 payments-api.service 1 0 Scheduled restart job, restart counter is at 1
+2026-10-16T09:35:27Z 3 payments-api.service 901 998 database connection timed out after 30s
+2026-10-16T09:35:27Z 4 payments-api.service 1 0 payments-api.service: Start request repeated too quickly
+2026-10-16T09:39:44Z 5 payments-api.service 1 0 payments-api.service: Unit entered failed state

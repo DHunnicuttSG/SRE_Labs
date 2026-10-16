@@ -1,0 +1,9 @@
+2026-10-16T08:12:02Z 6 payments-api.service 611 998 Starting Payments API
+2026-10-16T08:12:04Z 6 payments-api.service 611 998 Connected to database pool
+2026-10-16T08:47:30Z 4 payments-api.service 611 998 database connection latency above threshold
+2026-10-16T08:48:01Z 3 payments-api.service 611 998 database connection timed out after 30s
+2026-10-16T08:48:01Z 4 payments-api.service 1 0 payments-api.service: Failed with result exit-code
+2026-10-16T08:52:17Z 4 payments-api.service 1 0 Restarting service after failure
+2026-10-16T08:53:01Z 3 payments-api.service 611 998 database connection timed out after 30s
+2026-10-16T08:53:01Z 4 payments-api.service 1 0 payments-api.service: Failed with result exit-code
+2026-10-16T08:59:49Z 5 payments-api.service 1 0 payments-api.service: Unit entered failed state

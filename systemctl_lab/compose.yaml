@@ -1,0 +1,5 @@
+services:
+  systemctl-lab:
+    build: .
+    stdin_open: true
+    tty: true

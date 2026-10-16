@@ -1,0 +1,5 @@
+services:
+  linux-cron-lab:
+    build: .
+    stdin_open: true
+    tty: true

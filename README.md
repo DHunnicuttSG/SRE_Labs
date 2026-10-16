@@ -18,7 +18,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Hard and Soft Links | Diagnose inode identity, hard-link counts, symlink targets, and safe link cleanup. | [Lab guide - Not Tested](Hard_Soft_Links_Lab/README.md) |
 | Systemctl & Journalctl | Practice using systemctl and journalctl to diagnose failed services, inspect unit configuration, and investigate relevant logs  | [Lab guide - Not Tested](systemctl_Lab/README.md) |
 | Linux Environment Variables | Practice inspecting and safely managing Linux environment variables  | [Lab guide - Not Tested](Linux_Environment_Variables_Lab/README.md)  |
-| Cron Jobs | Practice  | planning |
+| Linux Cron Jobs | Schedule and troubleshoot Linux cron jobs, verify one-minute execution, and inspect job output on a Linux host or EC2 instance. | [Lab guide - Not Tested](Linux_Cron_Lab/README.md) |
 | Linux Aliases / Shortcuts | Practice  | planning |
 | Linux Find | Search files by name, type, size, age, and permissions with `find`, and compare live searches with `locate`. | [Lab guide - Not Tested](Linux_Find_Lab/README.md) |
 | Python | Practice  | planning |

@@ -1,0 +1,5 @@
+services:
+  hard-soft-links-lab:
+    build: .
+    stdin_open: true
+    tty: true

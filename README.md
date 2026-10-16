@@ -15,7 +15,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Permissions | Practice changing permissions on files and directories. | [Lab guide](Permissions_Lab/README.md) |
 | User/Group Admin | Practice Linux user and group administration, shared-directory permissions, setgid, and umask. | [Lab guide - Not Tested](User_Group_Admin_Lab/README.md) |
 | Redirection and Pipes | Practice Bash input/output redirection, and pipelines. | [Lab guide - Not Tested](Redirection_Pipes_Lab/README.md) |
-| Hard And Soft links | Practice  | planning |
+| Linux Hard and Soft Links | Diagnose inode identity, hard-link counts, symlink targets, and safe link cleanup. | [Lab guide](Hard_Soft_Links_Lab/README.md) |
 | Systemctl | Practice  | planning |
 | Journalctl | Practice  | planning |
 | Linux Environment Variables | Practice  | planning |

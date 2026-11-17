@@ -60,6 +60,10 @@ Connect to the instance over SSH, then install and start Docker and Git:
 sudo dnf install -y docker git
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
+# reset the groups
+newgrp docker
+# show list of group of which you are a member
+groups
 ```
 
 Log out of SSH and reconnect so the new Docker group membership takes effect. Verify Docker:

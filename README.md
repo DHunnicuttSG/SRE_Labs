@@ -8,7 +8,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | --- | --- | --- |
 | Linux Navigation | Practice shell navigation and basic file and directory operations. | [Lab guide](Navigation_Lab/README.md) |
 | Linux Grep | Practice fixed-string and regular-expression searches, grep options, recursive search, and pipelines. | [Lab guide](Grep_Lab/README.md) |
-| Linux Awk | Practice field selection, filtering, calculations, formatting, and log analysis with awk. | [Lab guide - Not Tested](awk_Lab/README.md) |
+| Linux Awk | Practice field selection, filtering, calculations, formatting, and log analysis with awk. | [Lab guide](awk_Lab/README.md) |
 | Linux Sed | Practice stream editing with substitutions, addressing, in-place edits, and pipelines. | [Lab guide](Sed_Lab/README.md) |
 | Linux Networking | Inspect interfaces, routes, DNS, connectivity, and a local HTTP service. | [Lab guide](Linux_Networking_Lab/README.md) |
 | System Info and Processes | Collect system resource information and inspect and manage a test process. | [Lab guide](System_Info_And_Processes_Lab/README.md) |
@@ -21,7 +21,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Cron Jobs | Schedule and troubleshoot Linux cron jobs, verify one-minute execution, and inspect job output on a Linux host or EC2 instance. | [Lab guide - Not Tested](Linux_Cron_Lab/README.md) |
 | Linux Aliases / Shortcuts | Build Bash aliases and reusable functions for safe production-support triage. | [Lab guide - Not Tested](Alias_Lab/README.md) |
 | Linux Find | Search files by name, type, size, age, and permissions with `find`, and compare live searches with `locate`. | [Lab guide - Not Tested](Linux_Find_Lab/README.md) |
-| Python | Practice  | planning |
+| Python Automation Health Check | Write a Python script to measure disk and memory utilization, test URL latency and timeouts, check an API endpoint, and query SQLite. | [Lab guide](Automation_Lab/README.md) |
 | SQL | Practice  | planning |
 
 <!-- | Docker SRE | Explore ticketing and inventory apps alongside Prometheus, Grafana, Loki, Alloy, and Alertmanager. | [Lab guide](Docker_lab/README.md) |

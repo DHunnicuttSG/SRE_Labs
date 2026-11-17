@@ -13,7 +13,7 @@ Hands-on labs for Linux administration, site reliability engineering, containeri
 | Linux Networking | Inspect interfaces, routes, DNS, connectivity, and a local HTTP service. | [Lab guide](Linux_Networking_Lab/README.md) |
 | System Info and Processes | Collect system resource information and inspect and manage a test process. | [Lab guide](System_Info_And_Processes_Lab/README.md) |
 | Linux Permissions | Practice changing permissions on files and directories. | [Lab guide](Permissions_Lab/README.md) |
-| User/Group Admin | Practice Linux user and group administration, shared-directory permissions, setgid, and umask. | [Lab guide - Not Tested](User_Group_Admin_Lab/README.md) |
+| User/Group Admin | Practice Linux user and group administration, shared-directory permissions, setgid, and umask. | [Lab guide - check](User_Group_Admin_Lab/README.md) |
 | Redirection and Pipes | Practice Bash input/output redirection, and pipelines. | [Lab guide - Not Tested](Redirection_Pipes_Lab/README.md) |
 | Linux Hard and Soft Links | Diagnose inode identity, hard-link counts, symlink targets, and safe link cleanup. | [Lab guide - Not Tested](Hard_Soft_Links_Lab/README.md) |
 | Systemctl & Journalctl | Practice using systemctl and journalctl to diagnose failed services, inspect unit configuration, and investigate relevant logs  | [Lab guide - Not Tested](systemctl_Lab/README.md) |
@@ -58,10 +58,16 @@ Connect to the instance over SSH, then install and start Docker and Git:
 
 ```bash
 sudo dnf install -y docker git
+
+# enable and start docker
 sudo systemctl enable --now docker
+
+# add current user to docker group
 sudo usermod -aG docker "$USER"
+
 # reset the groups
 newgrp docker
+
 # show list of group of which you are a member
 groups
 ```
